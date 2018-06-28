@@ -1,12 +1,16 @@
 package com.qzhou.sao.Base;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.qzhou.sao.R;
+import com.qzhou.sao.UI.Activity.MainActivity;
 
 public abstract class BaseActicity extends AppCompatActivity {
    //app 的name
@@ -19,6 +23,18 @@ public abstract class BaseActicity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        Window window = BaseActicity.this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+
+        //设置顶部状态栏颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //window.setStatusBarColor(BaseActicity.this.getResources().getColor(R.color.accent_color));
+        }
+
+
         setContentView(intiLayout());
         isDebug = MyApp.isDebug;
         APP_NAME = MyApp.APP_NAME;

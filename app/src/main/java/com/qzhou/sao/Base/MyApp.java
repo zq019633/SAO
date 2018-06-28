@@ -3,6 +3,8 @@ package com.qzhou.sao.Base;
 import android.app.Application;
 import android.content.Context;
 
+import com.qzhou.sao.Utils.SpUtils;
+
 public class MyApp extends Application {
     //是否是调试模式 打印log
     public static boolean isDebug = true;
@@ -22,6 +24,8 @@ public class MyApp extends Application {
     }
 
 
+
+
     //上下文
     public static Context context;
 
@@ -34,6 +38,7 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        SpUtils.init(context,getPackageName(),MODE_PRIVATE);
     }
 }
 
