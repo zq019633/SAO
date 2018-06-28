@@ -22,6 +22,7 @@ public abstract class BaseActicity extends AppCompatActivity {
         setContentView(intiLayout());
         isDebug = MyApp.isDebug;
         APP_NAME = MyApp.APP_NAME;
+        //修改
         
         initView();
         initData();
