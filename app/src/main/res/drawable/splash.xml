@@ -6,8 +6,10 @@
     <item>
         <!-- 图片 -->
         <bitmap
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/spl_bg"
             android:gravity="center"
+
+
              />
     </item>
 </layer-list>
