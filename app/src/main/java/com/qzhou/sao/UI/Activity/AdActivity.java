@@ -36,7 +36,7 @@ public class AdActivity extends AppCompatActivity {
 
     private void initData() {
 
-        Glide.with(AdActivity.this).load("http://file32.mafengwo.net/M00/4F/21/wKgBs1cN_3qAOKQpAAhByaOonCY71.jpg").into(ad);
+//        Glide.with(AdActivity.this).load("http://file32.mafengwo.net/M00/4F/21/wKgBs1cN_3qAOKQpAAhByaOonCY71.jpg").into(ad);
 
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/raw/" + R.raw.splash_animation);
         logo.setVideoURI(uri);
