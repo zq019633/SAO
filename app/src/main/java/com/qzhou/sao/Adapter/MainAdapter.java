@@ -19,6 +19,8 @@ public class MainAdapter extends FragmentPagerAdapter {
         this.context=mainActivity;
         this.fragments=fragments;
         Log.e("sd","sd");
+        Log.e("sd","sd");
+        Log.e("sd","sd");
     }
 
     @Override
