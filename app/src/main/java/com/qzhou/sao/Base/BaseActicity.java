@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.github.nukc.stateview.StateView;
 import com.qzhou.sao.R;
-import com.qzhou.sao.UI.Activity.MainActivity;
 
 public abstract class BaseActicity extends AppCompatActivity {
    //app 的name
@@ -19,14 +19,16 @@ public abstract class BaseActicity extends AppCompatActivity {
     private boolean isDebug;
 
     protected final String TAG = this.getClass().getSimpleName();
+    private StateView mStateView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         Window window = BaseActicity.this.getWindow();
+
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
 
 
         //设置顶部状态栏颜色
@@ -39,13 +41,21 @@ public abstract class BaseActicity extends AppCompatActivity {
         isDebug = MyApp.isDebug;
         APP_NAME = MyApp.APP_NAME;
         //修改
+
+        mStateView = StateView.inject(this);
+        if (mStateView != null){
+
+            mStateView.setRetryResource(R.layout.page_net_error);
+
+        }
+
         
         initView();
-        initData();
+        initData(mStateView);
     }
 
     //初始化数据
-    protected abstract void initData();
+    protected abstract void initData(StateView mStateView);
 
     //初始化视图
     protected abstract void initView();

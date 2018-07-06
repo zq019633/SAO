@@ -36,7 +36,7 @@ public class AdActivity extends AppCompatActivity {
 
     private void initData() {
 
-//        Glide.with(AdActivity.this).load("http://file32.mafengwo.net/M00/4F/21/wKgBs1cN_3qAOKQpAAhByaOonCY71.jpg").into(ad);
+        Glide.with(AdActivity.this).load("http://file32.mafengwo.net/M00/4F/21/wKgBs1cN_3qAOKQpAAhByaOonCY71.jpg").into(ad);
 
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/raw/" + R.raw.splash_animation);
         logo.setVideoURI(uri);
@@ -55,7 +55,7 @@ public class AdActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdActivity.this, MainActivity.class);
 
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1500);
                     startActivity(intent);
                     AdActivity.this.finish();
                 } catch (InterruptedException e) {

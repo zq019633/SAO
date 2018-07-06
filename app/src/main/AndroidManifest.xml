@@ -16,6 +16,8 @@
 
         <activity android:name=".UI.Activity.SplashActivity"
             android:theme="@style/welcomeTheme"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|screenSize|orientation"
 
         >
             <intent-filter>
@@ -28,6 +30,7 @@
 
         <activity android:name=".UI.Activity.AdActivity"></activity>
         <activity android:name=".UI.Activity.MainActivity" android:theme="@style/NoActionBar"></activity>
+
 
     </application>
 

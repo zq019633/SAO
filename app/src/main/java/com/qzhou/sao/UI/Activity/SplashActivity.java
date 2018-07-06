@@ -22,6 +22,7 @@ import com.qzhou.sao.Base.BaseActicity;
 import com.qzhou.sao.Custom.WelcomeView;
 import com.qzhou.sao.R;
 import com.qzhou.sao.Utils.SpUtils;
+import com.qzhou.sao.Utils.ToastUtil;
 
 public class SplashActivity extends AppCompatActivity {
     private WelcomeView welcome;
@@ -39,6 +40,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_splash);
+
 
         boolean value = SpUtils.getInstance().getBoolean("isFirst", true);
         if(value){
