@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 
 import com.qzhou.sao.UI.Activity.MainActivity;
 
@@ -17,11 +18,13 @@ public class MainAdapter extends FragmentPagerAdapter {
         super(supportFragmentManager);
         this.context=mainActivity;
         this.fragments=fragments;
+        Log.e("sd","sd");
     }
 
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);
+
 
     }
 
