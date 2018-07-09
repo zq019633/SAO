@@ -33,13 +33,14 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
     public static int OTHER=5;
     private final Context context;
     private final List list_path;
-    private final List<HomeData.NewsBean> responseData;
+    private final List<HomeData.NewsBean> news;
 
 
     public HomeAdapter(Context context, List list, List<HomeData.NewsBean> responseData) {
         this.context=context;
         this.list_path=list;
-        this.responseData=responseData;
+        this.news=responseData;
+
     }
 
 
@@ -92,7 +93,7 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
                     //必须最后调用的方法，启动轮播图。
                     .start();
         }else if(holder instanceof ButtonHolder){
-            ((ButtonHolder) holder).textView.setText(responseData.get(position).getContent());
+            ((ButtonHolder) holder).textView.setText(news.get(position).getContent());
         }
 
     }
@@ -121,7 +122,7 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
 
     @Override
     public int getItemCount() {
-        return responseData.size();
+        return news.size()+1;
 
     }
 
