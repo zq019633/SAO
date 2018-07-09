@@ -93,7 +93,7 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
                     //必须最后调用的方法，启动轮播图。
                     .start();
         }else if(holder instanceof ButtonHolder){
-            ((ButtonHolder) holder).textView.setText(news.get(position).getContent());
+            ((ButtonHolder) holder).textView.setText(news.get(position-1).getContent());
         }
 
     }
