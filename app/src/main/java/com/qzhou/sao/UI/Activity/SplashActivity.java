@@ -2,27 +2,19 @@ package com.qzhou.sao.UI.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.qzhou.sao.Base.BaseActicity;
 import com.qzhou.sao.Custom.WelcomeView;
 import com.qzhou.sao.R;
 import com.qzhou.sao.Utils.SpUtils;
-import com.qzhou.sao.Utils.ToastUtil;
 
 public class SplashActivity extends AppCompatActivity {
     private WelcomeView welcome;

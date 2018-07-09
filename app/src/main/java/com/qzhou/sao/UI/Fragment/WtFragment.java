@@ -1,10 +1,8 @@
 package com.qzhou.sao.UI.Fragment;
 
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.View;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.qzhou.sao.Adapter.WtAdapter;

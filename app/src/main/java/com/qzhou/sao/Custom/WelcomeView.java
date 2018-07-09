@@ -2,7 +2,6 @@ package com.qzhou.sao.Custom;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.VideoView;
 
 public class WelcomeView extends VideoView {

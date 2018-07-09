@@ -1,7 +1,6 @@
 package com.qzhou.sao.UI.Activity;
 
 
-
 import android.support.v4.app.Fragment;
 
 import com.flyco.tablayout.CommonTabLayout;
@@ -17,7 +16,6 @@ import com.qzhou.sao.UI.Fragment.MeFragment;
 import com.qzhou.sao.UI.Fragment.MsgFragment;
 import com.qzhou.sao.UI.Fragment.ShoppingCarFragment;
 import com.qzhou.sao.UI.Fragment.WtFragment;
-import com.qzhou.sao.Utils.ToastUtil;
 import com.qzhou.sao.View.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -41,11 +39,10 @@ public class MainActivity extends BaseActicity {
 
 
     @Override
-    protected void initData(StateView mStateView) {
+    protected void initData(final StateView mStateView) {
 
-        mStateView.showRetry();
 
-        ToastUtil.showShort(getApplicationContext(),"nihao ");
+
 
         List<Fragment> fragments=new ArrayList<>();
         fragments.add(new HomeFragment());

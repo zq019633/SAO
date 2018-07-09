@@ -6,6 +6,6 @@
     <!--<color name="accent_color">#8000000F</color>-->
     <color name="white">#ffffff</color>
     <color name="tb">#ea9518</color>
-
+    <color name="unselect">#c0c0c0</color>
     <color name="background">#f4f5f6</color>
 </resources>

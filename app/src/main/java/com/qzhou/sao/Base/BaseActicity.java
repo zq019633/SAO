@@ -44,7 +44,6 @@ public abstract class BaseActicity extends AppCompatActivity {
 
         mStateView = StateView.inject(this);
         if (mStateView != null){
-
             mStateView.setRetryResource(R.layout.page_net_error);
 
         }
