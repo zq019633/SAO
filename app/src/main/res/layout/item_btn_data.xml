@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <ImageView
+
+        android:id="@+id/btn_iv"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@mipmap/bt1" />
+
+    <TextView
+        android:id="@+id/btn_tv"
+        android:textSize="11sp"
+        android:text="美食"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        />
+
+
+</LinearLayout>

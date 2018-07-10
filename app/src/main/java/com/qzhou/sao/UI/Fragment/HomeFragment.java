@@ -4,9 +4,13 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.qzhou.sao.Adapter.HomeAdapter;
 import com.qzhou.sao.Base.BaseFragment;
 
@@ -15,6 +19,7 @@ import com.qzhou.sao.Net.NetWork;
 import com.qzhou.sao.R;
 import com.youth.banner.loader.ImageLoader;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +29,10 @@ import rx.Observer;
 
 public class HomeFragment extends BaseFragment {
 
-    private RecyclerView homeRv;
+    private XRecyclerView homeRv;
     private ArrayList list;
-    private ArrayList buttonList;
+    private ArrayList<Integer> buttonList;
+    private ArrayList<String> tvList;
 
     @Override
     protected int getLayoutId() {
@@ -46,12 +52,28 @@ public class HomeFragment extends BaseFragment {
     protected void initData() {
         buttonList.add(R.mipmap.bt1);
         buttonList.add(R.mipmap.bt2);
-        buttonList.add(R.mipmap.bt3);
+        buttonList.add(R.mipmap.bt7);
         buttonList.add(R.mipmap.bt4);
         buttonList.add(R.mipmap.bt5);
         buttonList.add(R.mipmap.bt6);
         buttonList.add(R.mipmap.bt7);
         buttonList.add(R.mipmap.bt8);
+        buttonList.add(R.mipmap.bt2);
+        buttonList.add(R.mipmap.bt7);
+
+        tvList = new ArrayList();
+        tvList.add("天猫");
+        tvList.add("聚划算");
+        tvList.add("天猫国际");
+        tvList.add("外卖");
+        tvList.add("天猫超市");
+        tvList.add("拍卖");
+        tvList.add("分类");
+        tvList.add("充值中心");
+        tvList.add("领金币");
+        tvList.add("飞猪");
+
+
 
 
         homeRv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -78,8 +100,22 @@ public class HomeFragment extends BaseFragment {
                 List<HomeData.NewsBean> news = homedata.getNews();
 
 
-                HomeAdapter adapter=new HomeAdapter(getContext(),list,news);
+                final HomeAdapter adapter=new HomeAdapter(getContext(),list,news);
+                adapter.setBannerData(list);
+
+
+
+                View buttonView= View.inflate(getContext(),R.layout.item_button,null);
+                adapter.addHeaderButton(buttonView,buttonList,tvList);
+
+
+
+
+
+
                 homeRv.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
 
 
 
