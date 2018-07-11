@@ -2,11 +2,8 @@ package com.qzhou.sao.UI.Fragment;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -19,7 +16,6 @@ import com.qzhou.sao.Net.NetWork;
 import com.qzhou.sao.R;
 import com.youth.banner.loader.ImageLoader;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +29,10 @@ public class HomeFragment extends BaseFragment {
     private ArrayList list;
     private ArrayList<Integer> buttonList;
     private ArrayList<String> tvList;
+    private ArrayList<String> adList;
+    private ArrayList<Integer> topList;
+    private ArrayList<String> honzronalRvList;
+    private ArrayList<Integer> honzronalRvIvList;
 
     @Override
     protected int getLayoutId() {
@@ -50,28 +50,62 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        buttonList.add(R.mipmap.bt1);
-        buttonList.add(R.mipmap.bt2);
-        buttonList.add(R.mipmap.bt7);
-        buttonList.add(R.mipmap.bt4);
-        buttonList.add(R.mipmap.bt5);
-        buttonList.add(R.mipmap.bt6);
-        buttonList.add(R.mipmap.bt7);
-        buttonList.add(R.mipmap.bt8);
-        buttonList.add(R.mipmap.bt2);
-        buttonList.add(R.mipmap.bt7);
+        buttonList.add(R.mipmap.meifa);
+        buttonList.add(R.mipmap.meishi);
+        buttonList.add(R.mipmap.ktv);
+        buttonList.add(R.mipmap.zhanlanguan);
+        buttonList.add(R.mipmap.zhoubianyou);
+        buttonList.add(R.mipmap.jiuba);
+        buttonList.add(R.mipmap.maoyanicon4);
+        buttonList.add(R.mipmap.qinglvjiudian);
+        buttonList.add(R.mipmap.play);
+        buttonList.add(R.mipmap.more);
 
         tvList = new ArrayList();
-        tvList.add("天猫");
-        tvList.add("聚划算");
-        tvList.add("天猫国际");
-        tvList.add("外卖");
-        tvList.add("天猫超市");
-        tvList.add("拍卖");
-        tvList.add("分类");
-        tvList.add("充值中心");
-        tvList.add("领金币");
-        tvList.add("飞猪");
+        tvList.add("买买买");
+        tvList.add("好吃哒");
+        tvList.add("去唱K");
+        tvList.add("游周边");
+        tvList.add("出去浪");
+        tvList.add("逛酒吧");
+        tvList.add("看大片");
+        tvList.add("住酒店");
+        tvList.add("涨姿势");
+        tvList.add("More");
+
+        adList = new ArrayList<>();
+        adList.add("胜比利时，法国杀入决赛");
+        adList.add("iphone11价格曝光");
+        adList.add("新版iphoneX将去除双下巴");
+
+
+        topList = new ArrayList<>();
+        topList.add(R.mipmap.hotbuy_title);
+        topList.add(R.mipmap.backup_title_1);
+        topList.add(R.mipmap.backup_title_2);
+        topList.add(R.mipmap.promo_title_1);
+
+
+        honzronalRvList = new ArrayList<>();
+
+        honzronalRvList.add("霸王餐");
+        honzronalRvList.add("必吃榜");
+        honzronalRvList.add("人气榜");
+        honzronalRvList.add("每日福利");
+        honzronalRvList.add("霸王餐");
+        honzronalRvList.add("必吃榜");
+        honzronalRvList.add("人气榜");
+
+        honzronalRvIvList=new ArrayList<>();
+        honzronalRvIvList.add(R.mipmap.bangdan);
+        honzronalRvIvList.add(R.mipmap.bangdan2);
+        honzronalRvIvList.add(R.mipmap.bangdan4);
+        honzronalRvIvList.add(R.mipmap.bangdan3);
+        honzronalRvIvList.add(R.mipmap.bangdan5);
+        honzronalRvIvList.add(R.mipmap.bangdan7);
+        honzronalRvIvList.add(R.mipmap.bangdan6);
+
+
 
 
 
@@ -97,18 +131,34 @@ public class HomeFragment extends BaseFragment {
                     list.add(responseData.get(i).getPicurl());
                 }
 
+
+                //其他数据
                 List<HomeData.NewsBean> news = homedata.getNews();
 
 
+                // 顶部轮播图
                 final HomeAdapter adapter=new HomeAdapter(getContext(),list,news);
                 adapter.setBannerData(list);
 
 
-
+                //中间的10个Button
                 View buttonView= View.inflate(getContext(),R.layout.item_button,null);
                 adapter.addHeaderButton(buttonView,buttonList,tvList);
 
 
+
+                //广告 滚动条
+                View adView= View.inflate(getContext(),R.layout.item_ad,null);
+                adapter.addAd(adView,adList);
+
+                //推荐的
+                View topView= View.inflate(getContext(),R.layout.item_top,null);
+                adapter.addTop(topView,homedata.getHomeData(),topList);
+
+
+                //水平滚动的recycleView
+                View horzontalView =View.inflate(getContext(),R.layout.item_horzontalrv,null);
+                adapter.addHorzontanView(horzontalView,honzronalRvList,honzronalRvIvList);
 
 
 

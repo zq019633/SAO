@@ -68,6 +68,10 @@ dependencies {
     //轮播图
     implementation 'com.youth.banner:banner:1.4.9'
 
+    //跑马灯广告
+    implementation 'com.oushangfeng:MarqueeLayout:1.0.8'
 
+//    cardView
+    implementation 'com.android.support:cardview-v7:27+'
 
 }

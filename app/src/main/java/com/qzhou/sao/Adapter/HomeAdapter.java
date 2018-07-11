@@ -1,16 +1,20 @@
 package com.qzhou.sao.Adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,7 +22,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import com.qzhou.sao.Bean.HomeData;
+import com.qzhou.sao.InterfacePackage.OnItemClickListener;
 import com.qzhou.sao.R;
+import com.qzhou.sao.Utils.ToastUtil;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
@@ -30,13 +36,13 @@ import java.util.List;
 public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListener {
 
 
-    public static int BANNER=0;
-    public static int TOP=1;
-    public static int BUTTON=2;
-    public static int TWO=2;
-    public static int THREE=3;
-    public static int FOUR=4;
-    public static int OTHER=5;
+    public static int BANNER = 0;
+    public static int BUTTON = 1;
+    public static int AD = 2;
+    public static int HOMETOP = 3;
+    public static final int HONZROALVIEW = 4;
+
+
     private final Context context;
 
     private final List<HomeData.NewsBean> news;
@@ -46,11 +52,19 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
     private ArrayList<Integer> mButtonData;
     private View buttonView;
     private ArrayList<String> tvList;
+    private ArrayList<String> adList;
+    private View adView;
+    private View topView;
+    private List<HomeData.HomeDataBean> homeData;
+    private ArrayList<Integer> topTitle;
+    private View horzontalRView;
+    private ArrayList<String> honzontalRvList;
+    private ArrayList<Integer> hIv;
 
 
     public HomeAdapter(Context context, List list, List<HomeData.NewsBean> responseData) {
-        this.context=context;
-        this.news=responseData;
+        this.context = context;
+        this.news = responseData;
 
     }
 
@@ -59,32 +73,36 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater mInflater = LayoutInflater.from(context);
-        View view=null;
-        RecyclerView.ViewHolder holder=null;
-        if(viewType==BANNER){
+        View view = null;
+        RecyclerView.ViewHolder holder = null;
+        if (viewType == BANNER) {
             view = mInflater.inflate(R.layout.item_banner, parent, false);
-            holder=new BannerHolder(view);
+            holder = new BannerHolder(view);
             return holder;
 
-        }else if(viewType==BUTTON){
+        } else if (viewType == BUTTON) {
+            holder = new ButtonHolder(buttonView);
+            return holder;
+        } else if (viewType == AD) {
+            holder = new AdHolder(adView);
 
-            holder=new ButtonHolder(buttonView);
+            return holder;
+        } else if (viewType == HOMETOP) {
+            holder = new TopHolder(topView);
+            return holder;
+        } else if (viewType == HONZROALVIEW) {
+            holder = new HonzronalRvHolder(horzontalRView);
+            return holder;
+        } else {
             return holder;
         }
-
-
-        else{
-            return  holder;
-        }
-
-
 
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        if(holder instanceof BannerHolder){
+        if (holder instanceof BannerHolder) {
             ((BannerHolder) holder).sliderBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
             //设置图片加载器，图片加载器在下方
             ((BannerHolder) holder).sliderBanner.setImageLoader(new MyLoader());
@@ -103,14 +121,40 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
                     .setOnBannerListener(this)
                     //必须最后调用的方法，启动轮播图。
                     .start();
-        }else if(holder instanceof ButtonHolder){
-
-            GridLayoutManager layoutManage = new GridLayoutManager(context, 4);
+        } else if (holder instanceof ButtonHolder) {
+            GridLayoutManager layoutManage = new GridLayoutManager(context, 5);
             ((ButtonHolder) holder).brv.setLayoutManager(layoutManage);
-            ((ButtonHolder) holder).brv.setAdapter(new ButtonAdapter(context,mButtonData,tvList));
+            ((ButtonHolder) holder).brv.setAdapter(new ButtonAdapter(context, mButtonData, tvList));
 
+        } else if (holder instanceof AdHolder) {
+            for (int i = 0; i < adList.size(); i++) {
+                View currentView = LayoutInflater.from(context).inflate(R.layout.item_ad_data, null);
+                TextView tv = currentView.findViewById(R.id.name);
+                tv.setText(adList.get(i));
+                currentView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtil.showShort(context, "我被点击了");
+                    }
+                });
 
+                ((AdHolder) holder).adVf.addView(currentView);
+            }
+        } else if (holder instanceof TopHolder) {
+            ((TopHolder) holder).topRv.setLayoutManager(new GridLayoutManager(context, 2));
+            TopAdapter topAdapter = new TopAdapter(context, homeData, topTitle);
+            ((TopHolder) holder).topRv.setAdapter(topAdapter);
 
+            topAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Log.e("11", "11" + position);
+                }
+            });
+        } else if (holder instanceof HonzronalRvHolder) {
+            ((HonzronalRvHolder) holder).honzronalRv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            HonzronalAdapter honAdapter = new HonzronalAdapter(context, honzontalRvList,hIv);
+            ((HonzronalRvHolder) holder).honzronalRv.setAdapter(honAdapter);
 
         }
 
@@ -119,39 +163,32 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
 
     @Override
     public int getItemViewType(int position) {
-        if(position==0){
+        if (position == 0) {
             return BANNER;
-        }else if(position==1&&buttonView!=null){
+        } else if (position == 1 && buttonView != null) {
             return BUTTON;
-        }
-
-
-//        else if( position%2==0&&position<6){
-//            return TWO;
-//        }else if(position%3==0&&position<9){
-//            return THREE;
-//        }else if(position%4==0&&position<12){
-//            return  FOUR;
-//        }
-
-        else{
+        } else if (position == 2 && adView != null) {
+            return AD;
+        } else if (position == 3 && topView != null) {
+            return HOMETOP;
+        } else if (position == 4 && horzontalRView != null) {
+            return HONZROALVIEW;
+        } else {
             return BANNER;
         }
     }
 
-    public void addHeaderButton(View v, ArrayList<Integer> buttonList, ArrayList<String> list ){
-        this.buttonView=v;
-        this.mButtonData=buttonList;
-        this.tvList=list;
+    public void addHeaderButton(View v, ArrayList<Integer> buttonList, ArrayList<String> list) {
+        this.buttonView = v;
+        this.mButtonData = buttonList;
+        this.tvList = list;
 
     }
-
-
 
 
     @Override
     public int getItemCount() {
-        return news.size()+1;
+        return news.size() + 4;
 
     }
 
@@ -162,26 +199,43 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
     }
 
     public void setBannerData(ArrayList list) {
-        this.bannerData=list;
+        this.bannerData = list;
+    }
+
+    public void addAd(View adView, ArrayList<String> adList) {
+        this.adList = adList;
+        this.adView = adView;
+    }
+
+    public void addTop(View topView, List<HomeData.HomeDataBean> homedata, ArrayList<Integer> topList) {
+        this.topView = topView;
+        this.homeData = homedata;
+        this.topTitle = topList;
+    }
+
+    public void addHorzontanView(View horzontalView, ArrayList<String> honzronalRvList, ArrayList<Integer> honzronalRvIvList) {
+        this.horzontalRView = horzontalView;
+        this.honzontalRvList = honzronalRvList;
+        this.hIv=honzronalRvIvList;
     }
 
 //第一个条目 轮播图
 
-    public  class BannerHolder extends XRecyclerView.ViewHolder{
+    public class BannerHolder extends XRecyclerView.ViewHolder {
 
         com.youth.banner.Banner sliderBanner;
 
         public BannerHolder(View itemView) {
             super(itemView);
-            sliderBanner =  itemView.findViewById(R.id.sliderBanner);
+            sliderBanner = itemView.findViewById(R.id.sliderBanner);
         }
     }
 
 
-//第二个条目 10个按钮
-    public class ButtonHolder extends  XRecyclerView.ViewHolder{
+    //第二个条目 10个按钮
+    public class ButtonHolder extends XRecyclerView.ViewHolder {
 
-         RecyclerView brv;
+        RecyclerView brv;
 
         public ButtonHolder(View itemView) {
             super(itemView);
@@ -191,41 +245,45 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
         }
     }
 
-    public class TwoHolder extends  XRecyclerView.ViewHolder{
+    //第三个条目
+    public class AdHolder extends XRecyclerView.ViewHolder {
 
-        public TwoHolder(View itemView) {
+
+        ViewFlipper adVf;
+
+        public AdHolder(View itemView) {
             super(itemView);
-
+            adVf = itemView.findViewById(R.id.adVf);
 
 
         }
     }
-    public class ThreeHolder extends  XRecyclerView.ViewHolder{
 
-        public ThreeHolder(View itemView) {
+
+    //第四个条目
+    public class TopHolder extends XRecyclerView.ViewHolder {
+
+        RecyclerView topRv;
+
+        public TopHolder(View itemView) {
             super(itemView);
-        }
-    }
+            topRv = itemView.findViewById(R.id.topRv);
 
-
-    public class FourHolder extends XRecyclerView.ViewHolder{
-
-        public FourHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-
-    public class OtherHolder extends  XRecyclerView.ViewHolder{
-
-        public OtherHolder(View itemView) {
-            super(itemView);
-//            itemView.findViewById()
-//
 
         }
     }
 
+    public class HonzronalRvHolder extends XRecyclerView.ViewHolder {
+
+        RecyclerView honzronalRv;
+
+        public HonzronalRvHolder(View itemView) {
+            super(itemView);
+            honzronalRv = itemView.findViewById(R.id.honzronalRv);
+
+
+        }
+    }
 
 
     private class MyLoader extends ImageLoader {
@@ -234,15 +292,6 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
             Glide.with(context).load((String) path).into(imageView);
         }
     }
-
-
-
-
-
-
-
-
-
 
 
 }

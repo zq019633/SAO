@@ -10,14 +10,15 @@
     <ImageView
 
         android:id="@+id/btn_iv"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@mipmap/bt1" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        />
 
     <TextView
         android:id="@+id/btn_tv"
-        android:textSize="11sp"
+        android:textSize="13sp"
         android:text="美食"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
