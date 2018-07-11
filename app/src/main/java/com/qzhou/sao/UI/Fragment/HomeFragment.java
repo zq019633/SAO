@@ -161,6 +161,10 @@ public class HomeFragment extends BaseFragment {
                 adapter.addHorzontanView(horzontalView,honzronalRvList,honzronalRvIvList);
 
 
+                View adImage =View.inflate(getContext(),R.layout.item_adiv,null);
+                adapter.addHorzontanView(adImage, (String) list.get(0));
+
+
 
 
                 homeRv.setAdapter(adapter);

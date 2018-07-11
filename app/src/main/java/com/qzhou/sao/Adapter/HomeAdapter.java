@@ -42,6 +42,7 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
     public static int HOMETOP = 3;
     public static final int HONZROALVIEW = 4;
 
+    private static final int ADIMAGE = 5;
 
     private final Context context;
 
@@ -60,6 +61,8 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
     private View horzontalRView;
     private ArrayList<String> honzontalRvList;
     private ArrayList<Integer> hIv;
+    private View adImage;
+    private String adUrl;
 
 
     public HomeAdapter(Context context, List list, List<HomeData.NewsBean> responseData) {
@@ -93,7 +96,13 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
         } else if (viewType == HONZROALVIEW) {
             holder = new HonzronalRvHolder(horzontalRView);
             return holder;
-        } else {
+        } else if(viewType==ADIMAGE){
+            holder=new AdImageHolder(adImage);
+            return holder;
+        }
+
+
+        else {
             return holder;
         }
 
@@ -153,9 +162,11 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
             });
         } else if (holder instanceof HonzronalRvHolder) {
             ((HonzronalRvHolder) holder).honzronalRv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-            HonzronalAdapter honAdapter = new HonzronalAdapter(context, honzontalRvList,hIv);
+            HonzronalAdapter honAdapter = new HonzronalAdapter(context, honzontalRvList, hIv);
             ((HonzronalRvHolder) holder).honzronalRv.setAdapter(honAdapter);
 
+        }else if(holder instanceof AdImageHolder){
+            Glide.with(context).load(adUrl).into(((AdImageHolder) holder).adimage);
         }
 
     }
@@ -173,7 +184,16 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
             return HOMETOP;
         } else if (position == 4 && horzontalRView != null) {
             return HONZROALVIEW;
-        } else {
+        } else if (position == 5 && adImage != null) {
+            return ADIMAGE;
+        }
+
+//        else if (position == 6 && topView != null) {
+//            return HOMETOP;
+//        }
+
+
+        else {
             return BANNER;
         }
     }
@@ -188,7 +208,7 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
 
     @Override
     public int getItemCount() {
-        return news.size() + 4;
+        return news.size() + 6;
 
     }
 
@@ -216,7 +236,12 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
     public void addHorzontanView(View horzontalView, ArrayList<String> honzronalRvList, ArrayList<Integer> honzronalRvIvList) {
         this.horzontalRView = horzontalView;
         this.honzontalRvList = honzronalRvList;
-        this.hIv=honzronalRvIvList;
+        this.hIv = honzronalRvIvList;
+    }
+
+    public void addHorzontanView(View adImage, String o) {
+        this.adImage = adImage;
+        this.adUrl = o;
     }
 
 //第一个条目 轮播图
@@ -280,6 +305,19 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
         public HonzronalRvHolder(View itemView) {
             super(itemView);
             honzronalRv = itemView.findViewById(R.id.honzronalRv);
+
+
+        }
+    }
+
+
+    public class AdImageHolder extends XRecyclerView.ViewHolder {
+
+        ImageView adimage;
+
+        public AdImageHolder(View itemView) {
+            super(itemView);
+            adimage = itemView.findViewById(R.id.adimage);
 
 
         }
