@@ -1,26 +1,26 @@
 package com.qzhou.sao.UI.Fragment;
 
-import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.qzhou.sao.Adapter.ButtonAdapter;
 import com.qzhou.sao.Adapter.HomeAdapter;
 import com.qzhou.sao.Base.BaseFragment;
 
 import com.qzhou.sao.Bean.HomeData;
 import com.qzhou.sao.Net.NetWork;
 import com.qzhou.sao.R;
-import com.youth.banner.loader.ImageLoader;
+import com.qzhou.sao.Utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observer;
-
 
 
 public class HomeFragment extends BaseFragment {
@@ -33,6 +33,7 @@ public class HomeFragment extends BaseFragment {
     private ArrayList<Integer> topList;
     private ArrayList<String> honzronalRvList;
     private ArrayList<Integer> honzronalRvIvList;
+    private List<HomeData.GoodsBean> mhomeData;
 
     @Override
     protected int getLayoutId() {
@@ -43,9 +44,36 @@ public class HomeFragment extends BaseFragment {
     protected void initView() {
         homeRv = findView(R.id.homeRv);
         list = new ArrayList();
-
         buttonList = new ArrayList();
 
+
+    }
+
+    private void initListener() {
+        final HomeData.GoodsBean bean=new HomeData.GoodsBean();
+        bean.setPicurl("https://gd4.alicdn.com/imgextra/i4/380101244/TB2Ye4taZeK.eBjSszgXXczFpXa_!!380101244.jpg");
+        bean.setTitle("新添加出来的");
+        bean.setPrice("100.00");
+
+        homeRv.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                ToastUtil.showShort(getContext(),"刷新成功");
+                homeRv.refreshComplete();
+            }
+
+            @Override
+            public void onLoadMore() {
+
+                ToastUtil.showShort(getContext(),"加载出来了");
+
+                mhomeData.add(bean);
+                mhomeData.add(bean);
+                mhomeData.add(bean);
+                mhomeData.add(bean);
+                homeRv.refreshComplete();
+            }
+        });
     }
 
     @Override
@@ -96,7 +124,7 @@ public class HomeFragment extends BaseFragment {
         honzronalRvList.add("必吃榜");
         honzronalRvList.add("人气榜");
 
-        honzronalRvIvList=new ArrayList<>();
+        honzronalRvIvList = new ArrayList<>();
         honzronalRvIvList.add(R.mipmap.bangdan);
         honzronalRvIvList.add(R.mipmap.bangdan2);
         honzronalRvIvList.add(R.mipmap.bangdan4);
@@ -105,12 +133,10 @@ public class HomeFragment extends BaseFragment {
         honzronalRvIvList.add(R.mipmap.bangdan7);
         honzronalRvIvList.add(R.mipmap.bangdan6);
 
+        initListener();
 
 
-
-
-
-        homeRv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        final StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         //请求网络
         NetWork.getBanner(new Observer<HomeData>() {
             @Override
@@ -126,64 +152,52 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onNext(HomeData homedata) {
 
-                final List<HomeData.BannerBean> responseData =homedata.getBanner();
-                for(int i=0;i<responseData.size();i++){
+
+                final List<HomeData.BannerBean> responseData = homedata.getBanner();
+                for (int i = 0; i < responseData.size(); i++) {
                     list.add(responseData.get(i).getPicurl());
                 }
 
-
                 //其他数据
-                List<HomeData.NewsBean> news = homedata.getNews();
-
+                mhomeData = homedata.getGoods();
+                final HomeAdapter adapter = new HomeAdapter(getContext(), list, mhomeData);
 
                 // 顶部轮播图
-                final HomeAdapter adapter=new HomeAdapter(getContext(),list,news);
                 adapter.setBannerData(list);
 
 
                 //中间的10个Button
-                View buttonView= View.inflate(getContext(),R.layout.item_button,null);
-                adapter.addHeaderButton(buttonView,buttonList,tvList);
-
+                // View buttonView= View.inflate(getContext(),R.layout.item_button,null);
+                //adapter.addHeaderButton(buttonView,buttonList,tvList);
+                adapter.setHeaderButtonData(buttonList, tvList);
 
 
                 //广告 滚动条
-                View adView= View.inflate(getContext(),R.layout.item_ad,null);
-                adapter.addAd(adView,adList);
+                // View adView= View.inflate(getContext(),R.layout.item_ad,null);
+                adapter.setAdData(adList);
+                //  adapter.addAd(adView,adList);
+
 
                 //推荐的
-                View topView= View.inflate(getContext(),R.layout.item_top,null);
-                adapter.addTop(topView,homedata.getHomeData(),topList);
+//                View topView= View.inflate(getContext(),R.layout.item_top,null);
+//                adapter.addTop(topView,homedata.getHomeData(),topList);
+                adapter.setTopData(homedata.getHomeData(), topList);
 
 
                 //水平滚动的recycleView
-                View horzontalView =View.inflate(getContext(),R.layout.item_horzontalrv,null);
-                adapter.addHorzontanView(horzontalView,honzronalRvList,honzronalRvIvList);
+//                View horzontalView =View.inflate(getContext(),R.layout.item_horzontalrv,null);
+                adapter.setHorzontalData(honzronalRvList, honzronalRvIvList);
+
+//                View adImage =View.inflate(getContext(),R.layout.item_adiv,null);
+//                adapter.addHorzontanView(adImage, (String) list.get(0));
 
 
-                View adImage =View.inflate(getContext(),R.layout.item_adiv,null);
-                adapter.addHorzontanView(adImage, (String) list.get(0));
-
-
-
-
+                homeRv.setLayoutManager(sglm);
                 homeRv.setAdapter(adapter);
-
-                adapter.notifyDataSetChanged();
-
-
-
-
 
 
             }
         });
-    }
-    private class MyLoader extends ImageLoader {
-        @Override
-        public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context).load((String) path).into(imageView);
-        }
     }
 
 }

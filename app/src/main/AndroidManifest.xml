@@ -9,8 +9,8 @@
         android:name=".Base.MyApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
-        android:theme="@style/NoActionBar">
+        android:theme="@style/NoActionBar"
+        >
 
 
 
@@ -29,8 +29,8 @@
         </activity>
 
         <activity android:name=".UI.Activity.AdActivity"></activity>
-        <activity android:name=".UI.Activity.MainActivity" android:theme="@style/NoActionBar"></activity>
-
+        <activity android:name=".UI.Activity.MainActivity" ></activity>
+        <!--android:theme="@style/NoActionBar"-->
 
     </application>
 

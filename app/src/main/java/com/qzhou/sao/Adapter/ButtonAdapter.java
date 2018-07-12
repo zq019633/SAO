@@ -13,7 +13,7 @@ import com.qzhou.sao.R;
 
 import java.util.ArrayList;
 
-class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.MyHolder> {
+public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.MyHolder> {
     private final Context context;
     private final ArrayList mButtonData;
     private final ArrayList<String> tvList;
