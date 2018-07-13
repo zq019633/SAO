@@ -26,9 +26,11 @@
                 android:id="@+id/ad_item_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
-                android:scaleType="centerCrop" />
+               android:scaleType="center"
+                 />
 
             <TextView
+                android:id="@+id/adname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ad_item_iv"

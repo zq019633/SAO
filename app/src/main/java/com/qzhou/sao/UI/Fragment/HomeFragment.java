@@ -1,17 +1,12 @@
 package com.qzhou.sao.UI.Fragment;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 
+import com.github.nukc.stateview.StateView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.qzhou.sao.Adapter.ButtonAdapter;
 import com.qzhou.sao.Adapter.HomeAdapter;
 import com.qzhou.sao.Base.BaseFragment;
-
 import com.qzhou.sao.Bean.HomeData;
 import com.qzhou.sao.Net.NetWork;
 import com.qzhou.sao.R;
@@ -77,7 +72,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    protected void initData() {
+    protected void initData(StateView mStateView) {
         buttonList.add(R.mipmap.meifa);
         buttonList.add(R.mipmap.meishi);
         buttonList.add(R.mipmap.ktv);

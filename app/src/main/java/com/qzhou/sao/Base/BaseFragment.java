@@ -9,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.nukc.stateview.StateView;
+import com.qzhou.sao.R;
+
 public abstract class BaseFragment  extends Fragment{
 
     private boolean isDebug;
     protected final String TAG = this.getClass().getSimpleName();
     private View view;
-
+    private StateView mStateView;
 
 
     @Nullable
@@ -30,8 +33,17 @@ public abstract class BaseFragment  extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         isDebug = MyApp.isDebug;
         this.view=view;
+
+
+        mStateView = StateView.inject(getActivity());
+        if (mStateView != null){
+            mStateView.setRetryResource(R.layout.page_net_error);
+        }
+
+
+
         initView();
-        initData();
+        initData(mStateView);
     }
     //log 开关
     public void TLog(String msg) {
@@ -41,7 +53,7 @@ public abstract class BaseFragment  extends Fragment{
     }
     protected abstract void initView();
 
-    protected abstract void initData();
+    protected abstract void initData(StateView mStateView);
 
     protected <T extends View> T findView(int id) {
         return (T) view.findViewById(id);

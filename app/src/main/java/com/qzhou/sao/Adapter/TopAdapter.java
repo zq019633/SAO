@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.qzhou.sao.Bean.HomeData;
-
 import com.qzhou.sao.InterfacePackage.OnItemClickListener;
 import com.qzhou.sao.R;
 

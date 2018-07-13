@@ -3,9 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="新闻"
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+
+        android:id="@+id/videoRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+
 
 </android.support.constraint.ConstraintLayout>

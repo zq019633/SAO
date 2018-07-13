@@ -1,7 +1,10 @@
 package com.qzhou.sao.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +19,6 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-
 import com.qzhou.sao.Bean.HomeData;
 import com.qzhou.sao.InterfacePackage.OnItemClickListener;
 import com.qzhou.sao.R;
@@ -40,8 +42,10 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
     public static final int HONZROALVIEW = 4;
     private static final int ADIMAGE = 5;
     private static final int ADITEM = 6;
-
     private static final int OTHER = 7;
+
+    private static final int RECOMMEND = 8;
+
 
     private final Context context;
 
@@ -126,28 +130,32 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
             holder = new AdImageHolder(view);
             return holder;
 
-        }
-        else if (viewType == ADITEM) {
+        } else if (viewType == ADITEM) {
             view = mInflater.inflate(R.layout.item_aditem, parent, false);
 
 
             holder = new AdItemHolder(view);
             return holder;
 
-        }
-
-
-        else {
+        } else {
             //正常布局
-            View other = mInflater.inflate(R.layout.item_other, parent, false);
 
-            holder = new OtherHolder(other);
-            return holder;
+            if (viewType == RECOMMEND) {
+                View recommond = mInflater.inflate(R.layout.item_aditem, parent, false);
+                holder = new RecommodHolder(recommond);
+                return holder;
+            } else {
+                View other = mInflater.inflate(R.layout.item_other, parent, false);
+                holder = new OtherHolder(other);
+                return holder;
+            }
         }
 
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof BannerHolder) {
@@ -237,22 +245,20 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
                     //必须最后调用的方法，启动轮播图。
                     .start();
 
+        } else if (holder instanceof AdItemHolder) {
 
-
-
-        }else if(holder instanceof  AdItemHolder){
             Glide.with(context).load("https://gd4.alicdn.com/imgextra/i4/380101244/TB2Ye4taZeK.eBjSszgXXczFpXa_!!380101244.jpg").into(((AdItemHolder) holder).ad_item_iv);
-        }
+            ((AdItemHolder) holder).ad_item_tv.setText("置顶");
+           ((AdItemHolder) holder).ad_item_tv.setTextColor(context.getColor(R.color.tb));
 
 
+        } else if (holder instanceof RecommodHolder) {
+            Glide.with(context).load("https://img12.360buyimg.com/babel/s350x226_jfs/t23638/75/348915468/113508/87f9deb3/5b2ccaabN33f6ef28.jpg!q90!cr_558x360_385_0").into(((RecommodHolder) holder).recommod_iv);
 
-
-        else if (holder instanceof OtherHolder) {
-
-
+        } else if (holder instanceof OtherHolder) {
             Glide.with(context).load(goods.get(position - 7).getPicurl()).into(((OtherHolder) holder).goodPic);
             ((OtherHolder) holder).goodName.setText(goods.get(position - 7).getTitle());
-            ((OtherHolder) holder).goodDetatil.setText("¥:"+goods.get(position - 7).getPrice());
+            ((OtherHolder) holder).goodDetatil.setText("¥:" + goods.get(position - 7).getPrice());
 
 
         }
@@ -275,13 +281,15 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
             return HONZROALVIEW;
         } else if (position == 5) {
             return ADIMAGE;
-        } else if(position==6){
+        } else if (position == 6) {
             return ADITEM;
-        }
-
-
-        else {
-            return OTHER;
+        } else {
+            //正常布局
+            if (position > 6 && position % 2 == 0 && position < 30) {
+                return RECOMMEND;
+            } else {
+                return OTHER;
+            }
         }
     }
 
@@ -432,10 +440,25 @@ public class HomeAdapter extends XRecyclerView.Adapter implements OnBannerListen
     public class AdItemHolder extends XRecyclerView.ViewHolder {
 
         ImageView ad_item_iv;
+        private final TextView ad_item_tv;
 
         public AdItemHolder(View itemView) {
             super(itemView);
             ad_item_iv = itemView.findViewById(R.id.ad_item_iv);
+            ad_item_tv = itemView.findViewById(R.id.adname);
+
+
+        }
+    }
+
+
+    public class RecommodHolder extends XRecyclerView.ViewHolder {
+
+        ImageView recommod_iv;
+
+        public RecommodHolder(View itemView) {
+            super(itemView);
+            recommod_iv = itemView.findViewById(R.id.ad_item_iv);
 
 
         }

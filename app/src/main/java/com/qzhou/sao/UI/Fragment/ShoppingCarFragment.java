@@ -1,5 +1,6 @@
 package com.qzhou.sao.UI.Fragment;
 
+import com.github.nukc.stateview.StateView;
 import com.qzhou.sao.Base.BaseFragment;
 import com.qzhou.sao.R;
 
@@ -15,7 +16,7 @@ public class ShoppingCarFragment extends BaseFragment{
     }
 
     @Override
-    protected void initData() {
+    protected void initData(StateView mStateView) {
 
     }
 }

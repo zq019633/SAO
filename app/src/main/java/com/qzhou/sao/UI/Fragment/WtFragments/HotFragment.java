@@ -1,5 +1,6 @@
 package com.qzhou.sao.UI.Fragment.WtFragments;
 
+import com.github.nukc.stateview.StateView;
 import com.qzhou.sao.Base.BaseFragment;
 import com.qzhou.sao.R;
 
@@ -21,7 +22,7 @@ public class HotFragment extends BaseFragment {
     }
 
     @Override
-    protected void initData() {
+    protected void initData(StateView mStateView) {
 
     }
 

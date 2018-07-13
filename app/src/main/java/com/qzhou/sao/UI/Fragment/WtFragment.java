@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.github.nukc.stateview.StateView;
 import com.qzhou.sao.Adapter.WtAdapter;
 import com.qzhou.sao.Base.BaseFragment;
 import com.qzhou.sao.R;
@@ -40,7 +41,7 @@ public class WtFragment extends BaseFragment{
     }
 
     @Override
-    protected void initData() {
+    protected void initData(StateView mStateView) {
         mFragments= new ArrayList<>();
         mFragments.add(new TopFragment());
         mFragments.add(new NewsFragment());

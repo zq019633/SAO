@@ -35,17 +35,15 @@ public abstract class BaseActicity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //window.setStatusBarColor(BaseActicity.this.getResources().getColor(R.color.accent_color));
         }
-
-
         setContentView(intiLayout());
         isDebug = MyApp.isDebug;
         APP_NAME = MyApp.APP_NAME;
         //修改
 
+
         mStateView = StateView.inject(this);
         if (mStateView != null){
             mStateView.setRetryResource(R.layout.page_net_error);
-
         }
 
         
