@@ -53,6 +53,9 @@ public abstract class BaseFragment  extends Fragment{
     }
     protected abstract void initView();
 
+
+
+
     protected abstract void initData(StateView mStateView);
 
     protected <T extends View> T findView(int id) {
