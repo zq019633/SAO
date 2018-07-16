@@ -12,7 +12,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
 public class SslContextFactory {
-    private static final String CLIENT_TRUST_PASSWORD = "*******";//信任证书密码
+    private static final String CLIENT_TRUST_PASSWORD = "123456";//信任证书密码
     private static final String CLIENT_AGREEMENT = "TLS";//使用协议
     private static final String CLIENT_TRUST_MANAGER = "X509";
     private static final String CLIENT_TRUST_KEYSTORE = "BKS";

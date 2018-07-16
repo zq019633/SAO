@@ -24,7 +24,9 @@
                 android:layout_height="200dp" />
 
             <TextView
+                android:id="@+id/video_title"
                 android:text="我是视频"
+                android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:layout_below="@+id/detail_player"
                 android:layout_width="match_parent"

@@ -44,12 +44,7 @@
         android:layout_gravity="bottom"
         app:tabMode="scrollable"
         android:layout_height="50dp">
-
     </com.flyco.tablayout.SlidingTabLayout>
-
-
-
-
 
 
 </android.support.design.widget.AppBarLayout>

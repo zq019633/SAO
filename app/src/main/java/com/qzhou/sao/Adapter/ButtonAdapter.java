@@ -42,8 +42,7 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.MyHolder> 
 
     @Override
     public int getItemCount() {
-        Log.e("文字","="+tvList);
-        Log.e("文字","="+mButtonData);
+
 
 
         return mButtonData.size();

@@ -7,26 +7,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.qzhou.sao.Bean.Hits;
 import com.qzhou.sao.Bean.TouBean;
 import com.qzhou.sao.Custom.SampleCoverVideo;
 import com.qzhou.sao.R;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VideoAdapter extends XRecyclerView.Adapter<VideoAdapter.MyHolder> {
     public static final String TAG = "VideoAdapter";
-    private final List<TouBean.DataBean.DisplayBean.HitsBean> videoList;
+
     private final Context context;
+    private final List<Hits> videoData;
 
 
-    public VideoAdapter(Context context, List<TouBean.DataBean.DisplayBean.HitsBean> videoList) {
-        this.videoList = videoList;
+    public VideoAdapter(Context context, List<Hits> videoList) {
+        this.videoData = videoList;
         this.context = context;
     }
 
@@ -43,7 +48,7 @@ public class VideoAdapter extends XRecyclerView.Adapter<VideoAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
-        holder.gsyVideoPlayer.setUpLazy(videoList.get(position).getVideo_url(), true, null, null, "这是title");
+        holder.gsyVideoPlayer.setUpLazy(videoData.get(position).getVideo_url(), true, null, null, "这是title");
 //增加title
         holder.gsyVideoPlayer.getTitleTextView().setVisibility(View.GONE);
 //设置返回键
@@ -71,25 +76,27 @@ public class VideoAdapter extends XRecyclerView.Adapter<VideoAdapter.MyHolder> {
 
 
 
-       holder.gsyVideoPlayer.loadCoverImage(videoList.get(position).getVideo_url(),0);
-
+       holder.gsyVideoPlayer.loadCoverImage(videoData.get(position).getLarge_thumbnail_url(),0);
+       holder.videoTitle.setText(videoData.get(position).getTitle());
 
 
     }
 
     @Override
     public int getItemCount() {
-        return videoList.size();
+        return videoData.size();
     }
 
 
     class MyHolder extends XRecyclerView.ViewHolder {
 
         SampleCoverVideo gsyVideoPlayer;
+        TextView videoTitle;
 
         public MyHolder(View itemView) {
             super(itemView);
             gsyVideoPlayer = itemView.findViewById(R.id.detail_player);
+            videoTitle = (TextView) itemView.findViewById(R.id.video_title);
 
 
         }

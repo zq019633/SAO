@@ -17,12 +17,18 @@ public  class RetifitUtils  {
     private static String TOU_BASE_URL="https://www.toutiao.com/";
 
 
+    //实时数据
+    private static String TOU_BASEURL="http://is.snssdk.com/";
+
+
 
 
 
     private static Retrofit retrofit;
     private static Retrofit retrofitTou;
+    private static Retrofit retrofitTouData;
 
+    //
     protected static Retrofit getRetrofit(){
         if(retrofit==null){
             OkHttpClient client = Okhttp3Utils.getOkHttpClient();
@@ -39,21 +45,38 @@ public  class RetifitUtils  {
 
 
 
-//    protected static Retrofit getRetrofitTou(Context context){
-//        if(retrofitTou==null){
-//            SSLSocketFactory sslSocketFactory = new SslContextFactory().getSslSocket(context).getSocketFactory();
-//            OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder().sslSocketFactory(sslSocketFactory);
-//
-//            retrofitTou=new Retrofit.Builder()
-//                    .baseUrl(TOU_BASE_URL)
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-//                    .client(okHttpClient.build())
-//                    .build();
-//        }
-//        return retrofitTou;
-//    }
+    protected static Retrofit getRetrofitTou(Context context){
+        if(retrofitTou==null){
 
+            OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder().sslSocketFactory(SSLSocketClient.getSSLSocketFactory());
+
+            retrofitTou=new Retrofit.Builder()
+                    .baseUrl(TOU_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .client(okHttpClient.build())
+
+                    .build();
+        }
+        return retrofitTou;
+    }
+
+
+
+    protected static Retrofit getRetrofitTouData(Context context){
+        if(retrofitTouData==null){
+
+            OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder().sslSocketFactory(SSLSocketClient.getSSLSocketFactory());
+
+            retrofitTouData=new Retrofit.Builder()
+                    .baseUrl(TOU_BASEURL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .client(okHttpClient.build())
+                    .build();
+        }
+        return retrofitTouData;
+    }
 
 
 
