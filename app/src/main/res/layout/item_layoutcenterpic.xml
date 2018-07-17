@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/centerNewsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="父亲节，我们写了一封信"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:id="@+id/centerNewsRl"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        >
+
+        <com.qzhou.sao.Custom.SampleCoverVideo
+            android:id="@+id/scv"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+        </com.qzhou.sao.Custom.SampleCoverVideo>
+
+
+
+        <ImageView
+            android:id="@+id/centerNewsPic"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_default" />
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/iv_play"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/selector_play_video"
+            android:layout_centerInParent="true"
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/centerNewsDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/centernews_shape"
+            android:padding="5dp"
+            android:text="02:00"
+            android:textColor="@color/white" />
+
+
+
+
+    </RelativeLayout>
+
+
+    <include
+        layout="@layout/item_button_layout"></include>
+</LinearLayout>

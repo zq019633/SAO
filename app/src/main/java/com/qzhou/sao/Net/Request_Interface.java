@@ -2,11 +2,13 @@ package com.qzhou.sao.Net;
 
 
 import com.qzhou.sao.Bean.HomeData;
+import com.qzhou.sao.Bean.Tou.NewsDetatil;
 import com.qzhou.sao.Bean.Tou.TouResponseBean;
 import com.qzhou.sao.Bean.TouBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 public interface Request_Interface {
@@ -31,6 +33,12 @@ public interface Request_Interface {
 
     @GET("api/news/feed/v62/?refer=1&count=20&loc_mode=4&device_id=34960436458&iid=13136511752")
     Observable<TouResponseBean> getTouData(@Query("category") String category,@Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+
+
+    @GET
+    Observable<NewsDetatil> getTouNewsDetatil(@Url String url);
+
+
 
 
 }

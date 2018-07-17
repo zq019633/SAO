@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/rigntNewsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:textColor="@color/black"
+                android:maxLines="2"
+                android:text="父亲节，让我们重温习近平写给父亲的信"
+                android:textSize="18sp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <include layout="@layout/item_button_layout"></include>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="80dp">
+
+        <com.qzhou.sao.Custom.SampleCoverVideo
+            android:id="@+id/right_scv"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.qzhou.sao.Custom.SampleCoverVideo>
+
+
+        <ImageView
+            android:id="@+id/right_pic"
+            android:visibility="gone"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_default" />
+
+        <TextView
+            android:id="@+id/right_time"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/centernews_shape"
+            android:padding="5dp"
+            android:text="20:00"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

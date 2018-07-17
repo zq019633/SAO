@@ -1,12 +1,14 @@
 package com.qzhou.sao.Bean.Tou;
 
+import java.io.Serializable;
+
 /**
  * @author ChayChan
  * @description: 用户实体类
  * @date 2017/7/9  10:43
  */
 
-public class UserEntity {
+public class UserEntity  implements Serializable{
     /**
      * verified_content :
      * avatar_url : http://p3.pstatp.com/thumb/216b000e0abb3ee9cb91

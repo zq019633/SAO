@@ -1,5 +1,6 @@
 package com.qzhou.sao.Bean.Tou;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @date 2017/7/9  10:44
  */
 
-public class VideoEntity {
+public class VideoEntity implements Serializable {
     /**
      * group_flags : 32832
      * video_type : 0

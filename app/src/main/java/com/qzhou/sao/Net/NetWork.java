@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.qzhou.sao.Base.MyApp;
 import com.qzhou.sao.Bean.HomeData;
+import com.qzhou.sao.Bean.Tou.NewsDetatil;
 import com.qzhou.sao.Bean.Tou.TouResponseBean;
 import com.qzhou.sao.Bean.TouBean;
 
@@ -22,7 +23,7 @@ public class NetWork  extends RetifitUtils{
     protected static final Request_Interface touVideo = getRetrofitTou(MyApp.getContext()).create(Request_Interface.class);
     protected static final Request_Interface touResponse = getRetrofitTouData(MyApp.getContext()).create(Request_Interface.class);
 
-
+    protected static final Request_Interface touNewsDetatil =getRetrofitTouNewsDetatil(MyApp.getContext()).create(Request_Interface.class);
 
     public static void getBanner(Observer<HomeData> observer) {
         setSubscribe(service.getVerfcationGet(),observer);
@@ -41,6 +42,12 @@ public class NetWork  extends RetifitUtils{
     public static void getTouResponse(String category,long lasttime, long currenttime,Observer<TouResponseBean> observer){
         setSubscribe(touResponse.getTouData(category,lasttime,currenttime),observer);
     }
+
+    public static void getTouNewsDetatil(String url,Observer<NewsDetatil> observer){
+        setSubscribe(touNewsDetatil.getTouNewsDetatil(url),observer);
+    }
+
+
 
 
 

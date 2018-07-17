@@ -1,7 +1,10 @@
 package com.qzhou.sao.Bean.Tou;
 
+
+
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +13,7 @@ import java.util.List;
  * @date 2017/7/6  15:11
  */
 
-public class News {
+public class News implements Serializable {
 
 
     /**
@@ -104,4 +107,5 @@ public class News {
     public String toString() {
         return new Gson().toJson(this);
     }
+
 }

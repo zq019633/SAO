@@ -1,8 +1,9 @@
 package com.qzhou.sao.Bean.Tou;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TouResponseBean {
+public class TouResponseBean  implements Serializable{
 
     /**
      * message : success

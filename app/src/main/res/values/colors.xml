@@ -9,6 +9,7 @@
     <color name="unselect">#c0c0c0</color>
     <color name="background">#f4f5f6</color>
     <!--<color name="background">#dbdbdb</color>-->
+    <color name="translucent">#aa000000</color>
 
     <color name="black">#000</color>
 </resources>

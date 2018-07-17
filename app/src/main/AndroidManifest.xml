@@ -32,8 +32,8 @@
             android:screenOrientation="portrait"
 
             ></activity>
-        <!--android:theme="@style/NoActionBar"-->
 
+        <activity android:name=".UI.Activity.VideoDetailActivity"></activity>
     </application>
 
 </manifest>

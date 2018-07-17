@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/ThreeNewsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:text="父亲节，让我们重温习近平写给父亲的信"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/threeNewsPic1"
+            android:src="@mipmap/ic_default"
+            android:scaleType="centerCrop"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_margin="1dp"
+            android:layout_height="80dp" />
+        <ImageView
+            android:id="@+id/threeNewsPic2"
+            android:src="@mipmap/ic_default"
+            android:scaleType="centerCrop"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="80dp" />
+        <ImageView
+            android:id="@+id/threeNewsPic3"
+            android:src="@mipmap/ic_default"
+            android:scaleType="centerCrop"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="80dp" />
+
+    </LinearLayout>
+<include layout="@layout/item_button_layout"></include>
+
+</LinearLayout>

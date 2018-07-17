@@ -1,5 +1,6 @@
 package com.qzhou.sao.Bean.Tou;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @date 2017/7/9  10:39
  */
 
-public class ImageEntity {
+public class ImageEntity implements Serializable {
     /**
      * url : http://p3.pstatp.com/list/300x196/2c23000095ae9f56b15f.webp
      * width : 700
@@ -23,7 +24,7 @@ public class ImageEntity {
     public int height;
     public List<UrlListBeanX> url_list;
 
-    public static class UrlListBeanX {
+    public static class UrlListBeanX implements Serializable{
         /**
          * url : http://p3.pstatp.com/list/300x196/2c23000095ae9f56b15f.webp
          */
