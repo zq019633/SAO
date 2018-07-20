@@ -11,8 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         >
-
+        <!--<activity android:name=".UI.Activity.testActivity"-->
         <activity android:name=".UI.Activity.SplashActivity"
+
+
+
             android:theme="@style/welcomeTheme"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -33,7 +36,11 @@
 
             ></activity>
 
-        <activity android:name=".UI.Activity.VideoDetailActivity"></activity>
+        <activity android:name=".UI.Activity.VideoDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            ></activity>
+        <!--<activity android:name=".UI.Activity.testActivity"></activity>-->
     </application>
 
 </manifest>

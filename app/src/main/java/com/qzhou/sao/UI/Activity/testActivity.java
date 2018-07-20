@@ -1,80 +1,161 @@
-package com.qzhou.sao.Custom;
+package com.qzhou.sao.UI.Activity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Point;
-import android.media.Image;
-import android.media.MediaPlayer;
-import android.os.Handler;
-import android.text.TextUtils;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
-
-import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.qzhou.sao.Custom.SampleCoverVideo;
 import com.qzhou.sao.R;
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.shuyu.gsyvideoplayer.video.GSYADVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer;
 
-
 import java.util.Timer;
 
+public class testActivity extends AppCompatActivity {
+    private StandardGSYVideoPlayer videoPlayer;
 
-public class SampleCoverVideo extends StandardGSYVideoPlayer {
-    ImageView mCoverImage;
-    String mCoverOriginUrl;
-    int mDefaultRes;
-    private ImageView scv_mStartButton;
-    private ProgressBar scv_mLoadingProgressBar;
-
-
-    public SampleCoverVideo(Context context, Boolean fullFlag) {
-        super(context, fullFlag);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test);
+        initView();
+        initData();
     }
 
-    public SampleCoverVideo(Context context) {
-        super(context);
+    private void initData() {
+
+        videoPlayer =  (StandardGSYVideoPlayer)findViewById(R.id.scv_video_detatil_test);
+
+        String source1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
+        videoPlayer.setUp(source1, true, "测试视频");
+
+        //增加封面
+        ImageView imageView = new ImageView(this);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        videoPlayer.setThumbImageView(imageView);
+        //增加title
+        videoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
+        //设置返回键
+        videoPlayer.getBackButton().setVisibility(View.VISIBLE);
+        //设置旋转
+        OrientationUtils orientationUtils = new OrientationUtils(this, videoPlayer);
+        //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
+        videoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orientationUtils.resolveByClick();
+            }
+        });
+        //是否可以滑动调整
+        videoPlayer.setIsTouchWiget(true);
+        //设置返回按键功能
+        videoPlayer.getBackButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        videoPlayer.startPlayLogic();
     }
 
-    public SampleCoverVideo(Context context, AttributeSet attrs) {
-        super(context, attrs);
+
+    private void initView() {
+        videoPlayer=  findViewById(R.id.scv_video_detatil_test);
     }
+}
 
 
-//    @Override
+
+//package com.qzhou.sao.Custom;
+//
+//        import android.annotation.SuppressLint;
+//        import android.content.Context;
+//        import android.graphics.Point;
+//        import android.media.Image;
+//        import android.os.Handler;
+//        import android.util.AttributeSet;
+//        import android.util.Log;
+//        import android.view.MotionEvent;
+//        import android.view.Surface;
+//        import android.view.View;
+//
+//        import android.view.ViewParent;
+//        import android.widget.ImageView;
+//        import android.widget.ProgressBar;
+//
+//
+//        import com.bumptech.glide.Glide;
+//        import com.bumptech.glide.request.RequestOptions;
+//        import com.qzhou.sao.R;
+//        import com.shuyu.gsyvideoplayer.utils.CommonUtil;
+//        import com.shuyu.gsyvideoplayer.utils.Debuger;
+//        import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+//        import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer;
+//
+//
+//        import java.util.Timer;
+//
+//
+//public class SampleCoverVideo extends StandardGSYVideoPlayer   {
+//    ImageView mCoverImage;
+//    String mCoverOriginUrl;
+//    int mDefaultRes;
+//    private ImageView scv_mStartButton;
+//    private ProgressBar scv_mLoadingProgressBar;
+//    private Timer updateTime;
+//
+//    public SampleCoverVideo(Context context, Boolean fullFlag) {
+//        super(context, fullFlag);
+//    }
+//
+//    public SampleCoverVideo(Context context) {
+//        super(context);
+//    }
+//
+//    public SampleCoverVideo(Context context, AttributeSet attrs) {
+//        super(context, attrs);
+//    }
+//
+//
+//
+//
+//
+//
+//
+////    @Override
+////    protected void init(Context context) {
+////        super.init(context);
+////        mCoverImage = (ImageView) findViewById(R.id.thumbImage);
+//////        scv_start = (ImageView) findViewById(R.id.scv_start);
+//////        scv_loading = (ProgressBar) findViewById(R.id.scv_loading);
+////        if (mThumbImageViewLayout != null &&
+////                (mCurrentState == -1 || mCurrentState == CURRENT_STATE_NORMAL || mCurrentState == CURRENT_STATE_ERROR)) {
+////            mThumbImageViewLayout.setVisibility(VISIBLE);
+////        }
+////    }
+//
 //    protected void init(Context context) {
 //        super.init(context);
-//        mCoverImage = (ImageView) findViewById(R.id.thumbImage);
-////        scv_start = (ImageView) findViewById(R.id.scv_start);
-////        scv_loading = (ProgressBar) findViewById(R.id.scv_loading);
-//        if (mThumbImageViewLayout != null &&
-//                (mCurrentState == -1 || mCurrentState == CURRENT_STATE_NORMAL || mCurrentState == CURRENT_STATE_ERROR)) {
-//            mThumbImageViewLayout.setVisibility(VISIBLE);
-//        }
-//    }
-
-
-
-
-    protected void init(Context context) {
-        super.init(context);
-        mCoverImage = (ImageView) findViewById(R.id.thumbImage);
+//
+//        updateTime = new Timer();
+//
 //        scv_mStartButton = findViewById(R.id.scv_start);
-        scv_mLoadingProgressBar = findViewById(R.id.scv_loading);
-
-
-
+//        scv_mLoadingProgressBar = findViewById(R.id.scv_loading);
+//
 //        if (!isInEditMode()) {
 //            if (scv_mStartButton != null) {
 //                scv_mStartButton.setOnClickListener(this);
@@ -139,169 +220,32 @@ public class SampleCoverVideo extends StandardGSYVideoPlayer {
 //                (mCurrentState == -1 || mCurrentState == CURRENT_STATE_NORMAL || mCurrentState == CURRENT_STATE_ERROR)) {
 //            mThumbImageViewLayout.setVisibility(VISIBLE);
 //        }
-    }
-
-//    protected void clickStartIcon() {
-//        if (TextUtils.isEmpty(this.mUrl)) {
-//            Debuger.printfError("********" + this.getResources().getString(com.shuyu.gsyvideoplayer.R.string.no_url));
-//        } else {
-//            if (this.mCurrentState != 0 && this.mCurrentState != 7) {
-//                if (this.mCurrentState == 2) {
-//                    try {
-//                        this.onVideoPause();
-//                    } catch (Exception var3) {
-//                        var3.printStackTrace();
-//                    }
-//                    this.setStateAndUi(5);
-//
-//                    if (this.mVideoAllCallBack != null && this.isCurrentMediaListener()) {
-//                        if (this.mIfCurrentIsFullscreen) {
-//                            Debuger.printfLog("onClickStopFullscreen");
-//                            this.mVideoAllCallBack.onClickStopFullscreen(this.mOriginUrl, new Object[]{this.mTitle, this});
-//                        } else {
-//                            Debuger.printfLog("onClickStop");
-//                            this.mVideoAllCallBack.onClickStop(this.mOriginUrl, new Object[]{this.mTitle, this});
-//                        }
-//                    }
-//                } else if (this.mCurrentState == 5) {
-//                    if (this.mVideoAllCallBack != null && this.isCurrentMediaListener()) {
-//                        if (this.mIfCurrentIsFullscreen) {
-//                            Debuger.printfLog("onClickResumeFullscreen");
-//                            this.mVideoAllCallBack.onClickResumeFullscreen(this.mOriginUrl, new Object[]{this.mTitle, this});
-//                        } else {
-//                            Debuger.printfLog("onClickResume");
-//                            this.mVideoAllCallBack.onClickResume(this.mOriginUrl, new Object[]{this.mTitle, this});
-//                        }
-//                    }
-//
-//                    try {
-//                        this.getGSYVideoManager().start();
-//                    } catch (Exception var2) {
-//                        var2.printStackTrace();
-//                    }
-//
-//                    this.setStateAndUi(2);
-//                } else if (this.mCurrentState == 6) {
-//                    this.startButtonLogic();
-//                }
-//            } else {
-//                if (this.isShowNetConfirm()) {
-//                    this.showWifiDialog();
-//                    return;
-//                }
-//
-//                this.startButtonLogic();
-//            }
-//
-//        }
-   // }
-
-//    public void onClick(View v) {
-//        int i = v.getId();
-//        if (this.mHideKey && this.mIfCurrentIsFullscreen) {
-//            CommonUtil.hideNavKey(this.mContext);
-//        }
-//
-//        if (i == R.id.scv_start) {
-//            this.clickStartIcon();
-//        } else if (i == R.id.surface_container && this.mCurrentState == 7) {
-//            if (this.mVideoAllCallBack != null) {
-//                Debuger.printfLog("onClickStartError");
-//                this.mVideoAllCallBack.onClickStartError(this.mOriginUrl, new Object[]{this.mTitle, this});
-//            }
-//
-//            this.prepareVideo();
-//        } else if (i == R.id.thumb) {
-//            if (!this.mThumbPlay) {
-//                return;
-//            }
-//
-//            if (TextUtils.isEmpty(this.mUrl)) {
-//                Debuger.printfError("********" + this.getResources().getString(com.shuyu.gsyvideoplayer.R.string.no_url));
-//                return;
-//            }
-//
-//            if (this.mCurrentState == 0) {
-//                if (this.isShowNetConfirm()) {
-//                    this.showWifiDialog();
-//                    return;
-//                }
-//
-//                scv_mStartButton.setImageResource(R.drawable.jc_click_pause_selector);
-//                this.startPlayLogic();
-//
-//
-//            } else if (this.mCurrentState == 6) {
-//                this.onClickUiToggle();
-//            }
-//        } else if (i == R.id.surface_container) {
-//            if (this.mVideoAllCallBack != null && this.isCurrentMediaListener()) {
-//                if (this.mIfCurrentIsFullscreen) {
-//                    Debuger.printfLog("onClickBlankFullscreen");
-//                    this.mVideoAllCallBack.onClickBlankFullscreen(this.mOriginUrl, new Object[]{this.mTitle, this});
-//                } else {
-//                    Debuger.printfLog("onClickBlank");
-//                    this.mVideoAllCallBack.onClickBlank(this.mOriginUrl, new Object[]{this.mTitle, this});
-//                }
-//            }
-//
-//            this.startDismissControlViewTimer();
-//
-//
-//        }
-//
 //    }
-
-    @Override
-    public void onInfo(int what, int extra) {
-        if (what == MediaPlayer.MEDIA_INFO_BUFFERING_START) {
-            mBackUpPlayingBufferState = mCurrentState;
-            //避免在onPrepared之前就进入了buffering，导致一只loading
-            if (mHadPlay && mCurrentState != CURRENT_STATE_PREPAREING && mCurrentState > 0)
-                setStateAndUi(CURRENT_STATE_PLAYING_BUFFERING_START);
-
-        } else if (what == MediaPlayer.MEDIA_INFO_BUFFERING_END) {
-            if (mBackUpPlayingBufferState != -1) {
-                if (mBackUpPlayingBufferState == CURRENT_STATE_PLAYING_BUFFERING_START) {
-                    mBackUpPlayingBufferState = CURRENT_STATE_PLAYING;
-                }
-                if (mHadPlay && mCurrentState != CURRENT_STATE_PREPAREING && mCurrentState > 0)
-                    setStateAndUi(mBackUpPlayingBufferState);
-
-                mBackUpPlayingBufferState = -1;
-            }
-        } else if (what == getGSYVideoManager().getRotateInfoFlag()) {
-            mRotate = 0;//<---------------------这里
-            Debuger.printfLog("Video Rotate Info " + extra);
-            if (mTextureView != null)
-                mTextureView.setRotation(mRotate);
-        }
-    }
-
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.video_layout_cover;
-    }
-
-    public void loadCoverImage(String url, int res) {
-        mCoverOriginUrl = url;
-        mDefaultRes = res;
-        Glide.with(getContext().getApplicationContext())
-                .setDefaultRequestOptions(
-                        new RequestOptions()
-                                .frame(1000000)
-                                .centerCrop()
-                                .error(res)
-                                .placeholder(res))
-                .load(url)
-                .into(mCoverImage);
-    }
-
+//
+//
+//    @Override
+//    public int getLayoutId() {
+//        return R.layout.video_layout_cover;
+//    }
+//
+//    public void loadCoverImage(String url, int res) {
+//        mCoverOriginUrl = url;
+//        mDefaultRes = res;
+//        Glide.with(getContext().getApplicationContext())
+//                .setDefaultRequestOptions(
+//                        new RequestOptions()
+//                                .frame(1000000)
+//                                .centerCrop()
+//                                .error(res)
+//                                .placeholder(res))
+//                .load(url)
+//                .into(mCoverImage);
+//    }
+//
 //    @Override
 //    public GSYBaseVideoPlayer startWindowFullscreen(Context context, boolean actionBar, boolean statusBar) {
 //        GSYBaseVideoPlayer gsyBaseVideoPlayer = super.startWindowFullscreen(context, actionBar, statusBar);
-//        SampleCoverVideo sampleCoverVideo = (SampleCoverVideo) gsyBaseVideoPlayer;
+//        com.qzhou.sao.Custom.SampleCoverVideo sampleCoverVideo = (com.qzhou.sao.Custom.SampleCoverVideo) gsyBaseVideoPlayer;
 //        sampleCoverVideo.loadCoverImage(mCoverOriginUrl, mDefaultRes);
 //        return gsyBaseVideoPlayer;
 //    }
@@ -310,11 +254,15 @@ public class SampleCoverVideo extends StandardGSYVideoPlayer {
 //    @Override
 //    public GSYBaseVideoPlayer showSmallVideo(Point size, boolean actionBar, boolean statusBar) {
 //        //下面这里替换成你自己的强制转化
-//        SampleCoverVideo sampleCoverVideo = (SampleCoverVideo) super.showSmallVideo(size, actionBar, statusBar);
+//        com.qzhou.sao.Custom.SampleCoverVideo sampleCoverVideo = (com.qzhou.sao.Custom.SampleCoverVideo) super.showSmallVideo(size, actionBar, statusBar);
 //        sampleCoverVideo.scv_mStartButton.setVisibility(GONE);
 //        sampleCoverVideo.scv_mStartButton = null;
 //        return sampleCoverVideo;
 //    }
+//
+//
+//
+//
 //
 //
 //    protected void onClickUiToggle() {
@@ -365,26 +313,25 @@ public class SampleCoverVideo extends StandardGSYVideoPlayer {
 //    }
 //
 //
-//    protected void hideAllWidget() {
-//        this.setViewShowState(this.mBottomContainer, INVISIBLE);
-//        this.setViewShowState(this.mTopContainer, INVISIBLE);
-//        this.setViewShowState(this.mBottomProgressBar, VISIBLE);
-//        this.setViewShowState(this.mStartButton, INVISIBLE);
+//    protected void changeUiToPlayingBufferingClear() {
+//        Debuger.printfLog("changeUiToPlayingBufferingClear");
+//        setViewShowState(mTopContainer, INVISIBLE);
+//        setViewShowState(mBottomContainer, INVISIBLE);
+//        setViewShowState(scv_mStartButton, INVISIBLE);
+//        setViewShowState(scv_mLoadingProgressBar, VISIBLE);
+//        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+//        setViewShowState(mBottomProgressBar, VISIBLE);
+//        setViewShowState(mLockScreen, GONE);
+//        if (scv_mLoadingProgressBar instanceof ProgressBar) {
+//            ProgressBar enDownloadView = (ProgressBar) scv_mLoadingProgressBar;
+//            enDownloadView.setVisibility(VISIBLE);
+//        }
+//        if (scv_mStartButton instanceof ImageView) {
+//            scv_mStartButton.setVisibility(GONE);
+//        }
+//
+//        updateStartImage();
 //    }
-//
-//
-//
-    protected void changeUiToPlayingBufferingClear() {
-        Debuger.printfLog("changeUiToPlayingBufferingClear");
-        setViewShowState(mTopContainer, INVISIBLE);
-        setViewShowState(mBottomContainer, INVISIBLE);
-        setViewShowState(mStartButton, INVISIBLE);
-        setViewShowState(scv_mLoadingProgressBar, VISIBLE);
-        setViewShowState(mThumbImageViewLayout, INVISIBLE);
-        setViewShowState(mBottomProgressBar, VISIBLE);
-        setViewShowState(mLockScreen, GONE);
-        updateStartImage();
-    }
 //
 //
 //    protected void changeUiToPauseClear() {
@@ -423,6 +370,7 @@ public class SampleCoverVideo extends StandardGSYVideoPlayer {
 //        setViewShowState(mThumbImageViewLayout, INVISIBLE);
 //        setViewShowState(mBottomProgressBar, INVISIBLE);
 //        setViewShowState(mLockScreen, GONE);
+//
 //
 //
 //    }
@@ -498,50 +446,55 @@ public class SampleCoverVideo extends StandardGSYVideoPlayer {
 //        setViewShowState(mLockScreen, GONE);
 //
 //
+//
 //        updateStartImage();
 //
 //    }
 //
-    protected void changeUiToPlayingShow() {
-        Debuger.printfLog("changeUiToPlayingShow");
-        setViewShowState(mTopContainer, VISIBLE);
-        setViewShowState(mBottomContainer, VISIBLE);
-        setViewShowState(mStartButton, VISIBLE);
-        setViewShowState(mBottomProgressBar, VISIBLE);
-        setViewShowState(scv_mLoadingProgressBar, INVISIBLE);
-        setViewShowState(mThumbImageViewLayout, INVISIBLE);
-        setViewShowState(mLockScreen, mIfCurrentIsFullscreen && mNeedLockFull ? 0 : 8);
-        updateStartImage();
-    }
+//    protected void changeUiToPlayingShow() {
+//        Debuger.printfLog("changeUiToPlayingShow");
+//        setViewShowState(mTopContainer, VISIBLE);
+//        setViewShowState(mBottomContainer, VISIBLE);
+//
+//        setViewShowState(scv_mStartButton, VISIBLE);
+//        setViewShowState(scv_mLoadingProgressBar, INVISIBLE);
+//        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+//        setViewShowState(mBottomProgressBar, INVISIBLE);
+//        setViewShowState(mLockScreen, mIfCurrentIsFullscreen && mNeedLockFull ? 0 : 8);
+//
+//
+//        setViewShowState(scv_mStartButton, INVISIBLE);
+//
+//
+//
+//        updateStartImage();
+//    }
 //
 //    protected void changeUiToPauseShow() {
 //        Debuger.printfLog("changeUiToPauseShow");
 //        setViewShowState(mTopContainer, VISIBLE);
-//
 //        setViewShowState(mBottomContainer, VISIBLE);
-//
 //        setViewShowState(scv_mStartButton, VISIBLE);
-//
 //        setViewShowState(scv_mLoadingProgressBar, INVISIBLE);
 //        setViewShowState(mThumbImageViewLayout, INVISIBLE);
-//        setViewShowState(mBottomProgressBar, VISIBLE);
+//        setViewShowState(mBottomProgressBar, INVISIBLE);
 //        setViewShowState(mLockScreen, mIfCurrentIsFullscreen && mNeedLockFull ? 0 : 8);
 //        updateStartImage();
 //        updatePauseCover();
 //    }
 //
-    protected void changeUiToPlayingBufferingShow() {
-        Debuger.printfLog("changeUiToPlayingBufferingShow");
-        setViewShowState(mTopContainer, VISIBLE);
-        setViewShowState(mBottomContainer, VISIBLE);
-        setViewShowState(mStartButton, INVISIBLE);
-        setViewShowState(scv_mLoadingProgressBar, VISIBLE);
-        setViewShowState(mThumbImageViewLayout, INVISIBLE);
-        setViewShowState(mBottomProgressBar, INVISIBLE);
-        setViewShowState(mLockScreen, GONE);
-        updateStartImage();
-
-    }
+//    protected void changeUiToPlayingBufferingShow() {
+//        Debuger.printfLog("changeUiToPlayingBufferingShow");
+//        setViewShowState(mTopContainer, VISIBLE);
+//        setViewShowState(mBottomContainer, VISIBLE);
+//        setViewShowState(scv_mStartButton, INVISIBLE);
+//        setViewShowState(scv_mLoadingProgressBar, VISIBLE);
+//        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+//        setViewShowState(mBottomProgressBar, INVISIBLE);
+//        setViewShowState(mLockScreen, GONE);
+//        updateStartImage();
+//
+//    }
 //
 //    protected void changeUiToCompleteShow() {
 //        Debuger.printfLog("changeUiToCompleteShow");
@@ -566,22 +519,22 @@ public class SampleCoverVideo extends StandardGSYVideoPlayer {
 //        setViewShowState(mLockScreen, mIfCurrentIsFullscreen && mNeedLockFull ? 0 : 8);
 //        updateStartImage();
 //    }
-
-
-    protected void updateStartImage() {
-        if (mStartButton instanceof ImageView) {
-            ImageView enPlayView = (ImageView) mStartButton;
-            if (mCurrentState == 2) {
-                enPlayView.setImageResource(R.drawable.jc_click_pause_selector);
-
-            } else if (mCurrentState == 7) {
-
-
-            } else {
-
-                enPlayView.setImageResource(R.drawable.jc_click_play_selector);
-
-            }
-        }
-    }
-}
+//
+//
+//    protected void updateStartImage() {
+//        if (scv_mStartButton instanceof ImageView) {
+//            ImageView enPlayView = (ImageView) scv_mStartButton;
+//            if (mCurrentState == 2) {
+//                enPlayView.setImageResource(R.drawable.jc_click_pause_selector);
+//
+//            } else if (mCurrentState == 7) {
+//
+//
+//            } else {
+//
+//                enPlayView.setImageResource(R.drawable.jc_click_play_selector);
+//
+//            }
+//        }
+//    }
+//}

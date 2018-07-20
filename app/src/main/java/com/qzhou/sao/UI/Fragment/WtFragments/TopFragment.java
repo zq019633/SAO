@@ -1,10 +1,14 @@
 package com.qzhou.sao.UI.Fragment.WtFragments;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -71,6 +75,7 @@ public class TopFragment extends BaseFragment {
                             News news = new Gson().fromJson(newsData.getContent(), News.class);
                             newsList.add(news);
                         }
+                        adapter.notifyDataSetChanged();
                         recommodRv.refreshComplete();
 
 
@@ -136,12 +141,31 @@ public class TopFragment extends BaseFragment {
                 recommodRv.setAdapter(adapter);
 
                 adapter.setNewsOnItemClickListener(new NewsOnItemClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
-                    public void onItemClick(int position, View view) {
+                    public void onItemClick(int position, View view, int type) {
+                        ToastUtil.showShort(getContext(), "我被点击了" + position);
+
                         if (newsList.get(position).has_video) {
                             Intent intent = new Intent(getContext(), VideoDetailActivity.class);
-                            intent.putExtra("videoData",newsList.get(position));
-                            startActivity(intent);
+                            intent.putExtra("videoData", newsList.get(position));
+                            if (type == 200) {
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
+                                        Pair.create(view.findViewById(R.id.centerNewsPic), "share"));
+                                startActivity(intent, options.toBundle());
+                            } else if (type == 300) {
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
+                                        Pair.create(view.findViewById(R.id.right_pic), "share"));
+                                startActivity(intent, options.toBundle());
+                            }
+
+
+                        } else {
+                            ToastUtil.showShort(getContext(), "不属于" + newsList.get(position).has_image);
+                            News news = newsList.get(position);
+
+                            Log.e("zq", "=" + newsList.get(position));
+                            ToastUtil.showShort(getContext(), "不属于" + position);
                         }
 
 

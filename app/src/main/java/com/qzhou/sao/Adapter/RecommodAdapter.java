@@ -64,9 +64,6 @@ public class RecommodAdapter extends XRecyclerView.Adapter{
         if(viewType==TEXT_NEWS){
             view= mInflater.inflate(R.layout.item_layouttext, parent,false);
             TextNewsItem holder=new TextNewsItem(view);
-
-
-
             return holder;
         }else if(viewType==CENTER_SINGLE_PIC_NEWS){
             view=mInflater.inflate(R.layout.item_layoutcenterpic,parent,false);
@@ -96,11 +93,9 @@ public class RecommodAdapter extends XRecyclerView.Adapter{
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    OnItemClickListener.onItemClick(position,holder.itemView);
+                    OnItemClickListener.onItemClick(position,holder.itemView,TEXT_NEWS);
                 }
             });
-
-
 
             ((TextNewsItem) holder).newsTitle.setText(data.get(position).title);
             ((TextNewsItem) holder).newsFrom.setText(data.get(position).source);
@@ -120,12 +115,10 @@ public class RecommodAdapter extends XRecyclerView.Adapter{
             ((TextNewsItem) holder).newsTime.setText(TimeUtils.getShortTime(data.get(position).behot_time * 1000));
 
         }else if(holder instanceof CenterPicItem){
-
-
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    OnItemClickListener.onItemClick(position,holder.itemView);
+                    OnItemClickListener.onItemClick(position,holder.itemView,CENTER_SINGLE_PIC_NEWS);
                 }
             });
 
@@ -173,13 +166,11 @@ public class RecommodAdapter extends XRecyclerView.Adapter{
 
 
 
-
-
         }else if(holder instanceof  RightPicItem){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    OnItemClickListener.onItemClick(position,holder.itemView);
+                    OnItemClickListener.onItemClick(position,holder.itemView,RIGHT_PIC_VIDEO_NEWS);
                 }
             });
             ((RightPicItem) holder).newsTitle.setText(data.get(position).title);
@@ -206,6 +197,7 @@ public class RecommodAdapter extends XRecyclerView.Adapter{
                 ((RightPicItem) holder).right_time.setText(TimeUtils.secToTime(data.get(position).video_duration));
 
             }else{
+                ((RightPicItem) holder).right_time.setVisibility(View.INVISIBLE);
                 Glide.with(context).load(data.get(position).middle_image.url).into(((RightPicItem) holder).right_pic);
             }
 
@@ -214,7 +206,7 @@ public class RecommodAdapter extends XRecyclerView.Adapter{
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    OnItemClickListener.onItemClick(position,holder.itemView);
+                    OnItemClickListener.onItemClick(position,holder.itemView,THREE_PICS_NEWS);
                 }
             });
             if(position==0){
@@ -290,7 +282,7 @@ public class RecommodAdapter extends XRecyclerView.Adapter{
         return data.size();
     }
 
-    class TextNewsItem extends XRecyclerView.ViewHolder{
+    public class TextNewsItem extends XRecyclerView.ViewHolder{
 
         private final TextView newsTitle;
         private final TextView newsFrom;

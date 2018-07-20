@@ -4,13 +4,14 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <RelativeLayout
+    <FrameLayout
+
         android:id="@+id/surface_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
 
-    </RelativeLayout>
+    </FrameLayout>
 
     <RelativeLayout
         android:id="@+id/thumb"
@@ -27,9 +28,9 @@
 
         <ImageView
             android:id="@+id/thumbImage"
-            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
     </RelativeLayout>
 
@@ -112,6 +113,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:paddingLeft="10dp"
+            android:visibility="gone"
             android:scaleType="centerInside"
             android:src="@drawable/video_back" />
 
@@ -121,36 +123,46 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
-    <moe.codeest.enviews.ENDownloadView
-        android:id="@+id/loading"
+    <!--<moe.codeest.enviews.ENDownloadView-->
+    <!--android:id="@+id/code_loading"-->
+    <!--android:layout_width="28dp"-->
+    <!--android:layout_height="28dp"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:visibility="invisible" />-->
+
+    <ProgressBar
+        android:id="@+id/scv_loading"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
+        android:indeterminateDrawable="@drawable/custom_loading" />
+
+    <ImageView
+        android:id="@+id/start"
         android:layout_width="28dp"
         android:layout_height="28dp"
+        android:visibility="gone"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:visibility="invisible" />
-
-        <!--<ImageView-->
-            <!--android:id="@+id/imst"-->
-            <!--android:src="@mipmap/ic_launcher"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_gravity="center_vertical"-->
-
-        <!--/>-->
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/jc_click_play_selector"
+        />
 
 
-<moe.codeest.enviews.ENPlayView
-        android:id="@+id/start"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_vertical" />
+    <!--<moe.codeest.enviews.ENPlayView-->
+    <!--android:id="@+id/start"-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:visibility="gone" />-->
 
 
     <ImageView

@@ -1,11 +1,10 @@
 package com.qzhou.sao.Net;
 
 
-import android.content.Context;
-
 import com.qzhou.sao.Base.MyApp;
 import com.qzhou.sao.Bean.HomeData;
-import com.qzhou.sao.Bean.Tou.NewsDetatil;
+import com.qzhou.sao.Bean.Tou.NewsDetail;
+import com.qzhou.sao.Bean.Tou.ResultResponse;
 import com.qzhou.sao.Bean.Tou.TouResponseBean;
 import com.qzhou.sao.Bean.TouBean;
 
@@ -43,7 +42,7 @@ public class NetWork  extends RetifitUtils{
         setSubscribe(touResponse.getTouData(category,lasttime,currenttime),observer);
     }
 
-    public static void getTouNewsDetatil(String url,Observer<NewsDetatil> observer){
+    public static void getTouNewsDetatil(String url, Observer<ResultResponse<NewsDetail>> observer){
         setSubscribe(touNewsDetatil.getTouNewsDetatil(url),observer);
     }
 

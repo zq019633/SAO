@@ -77,12 +77,12 @@ public class RetifitUtils {
 
     protected static Retrofit getRetrofitTouNewsDetatil(Context context) {
         if (retrofitTouNewsDetatil == null) {
-
+            OkHttpClient client = Okhttp3Utils.getOkHttpClient();
             retrofitTouNewsDetatil = new Retrofit.Builder()
                     .baseUrl(TOU_DETATIL_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-
+                    .client(client)
                     .build();
         }
         return retrofitTouNewsDetatil;
