@@ -2,6 +2,7 @@ package com.qzhou.sao.Net;
 
 
 import com.qzhou.sao.Bean.HomeData;
+import com.qzhou.sao.Bean.Tou.CommentResponse;
 import com.qzhou.sao.Bean.Tou.NewsDetail;
 import com.qzhou.sao.Bean.Tou.ResultResponse;
 import com.qzhou.sao.Bean.Tou.TouResponseBean;
@@ -34,6 +35,12 @@ public interface Request_Interface {
 
     @GET("api/news/feed/v62/?refer=1&count=20&loc_mode=4&device_id=34960436458&iid=13136511752")
     Observable<TouResponseBean> getTouData(@Query("category") String category,@Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+
+
+    @GET("article/v2/tab_comments/")
+    Observable<CommentResponse> getComment(@Query("group_id") String groupId, @Query("item_id") String itemId, @Query("offset") int offset, @Query("count") int count);
+
+
 
 
 //

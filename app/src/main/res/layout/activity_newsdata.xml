@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:layout_height="match_parent">
+    <include layout="@layout/title_bar"></include>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/pinglunRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+
+        <TextView
+            android:id="@+id/empty_tv"
+            android:visibility="invisible"
+            android:gravity="center"
+            android:text="还没有评论，快来抢沙发"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -3,6 +3,7 @@ package com.qzhou.sao.Net;
 
 import com.qzhou.sao.Base.MyApp;
 import com.qzhou.sao.Bean.HomeData;
+import com.qzhou.sao.Bean.Tou.CommentResponse;
 import com.qzhou.sao.Bean.Tou.NewsDetail;
 import com.qzhou.sao.Bean.Tou.ResultResponse;
 import com.qzhou.sao.Bean.Tou.TouResponseBean;
@@ -44,6 +45,11 @@ public class NetWork  extends RetifitUtils{
 
     public static void getTouNewsDetatil(String url, Observer<ResultResponse<NewsDetail>> observer){
         setSubscribe(touNewsDetatil.getTouNewsDetatil(url),observer);
+    }
+
+
+    public static  void getComment(String group_id, String item_id, int offest,int count, Observer<CommentResponse> observer){
+        setSubscribe(touResponse.getComment(group_id,item_id,offest,count),observer);
     }
 
 

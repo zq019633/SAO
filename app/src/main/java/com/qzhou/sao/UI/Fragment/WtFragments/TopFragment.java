@@ -23,7 +23,9 @@ import com.qzhou.sao.Bean.Tou.TouResponseBean;
 import com.qzhou.sao.InterfacePackage.NewsOnItemClickListener;
 import com.qzhou.sao.Net.NetWork;
 import com.qzhou.sao.R;
+import com.qzhou.sao.UI.Activity.NewsDetatilActivity;
 import com.qzhou.sao.UI.Activity.VideoDetailActivity;
+import com.qzhou.sao.UI.Activity.WebViewActivity;
 import com.qzhou.sao.Utils.ToastUtil;
 
 import java.io.Serializable;
@@ -128,9 +130,11 @@ public class TopFragment extends BaseFragment {
 
             @Override
             public void onNext(TouResponseBean touResponseBean) {
-
-
                 List<TouResponseBean.DataBean> data = touResponseBean.getData();
+
+
+
+
                 newsList = new ArrayList<>();
                 for (TouResponseBean.DataBean newsData : data) {
                     News news = new Gson().fromJson(newsData.getContent(), News.class);
@@ -149,6 +153,8 @@ public class TopFragment extends BaseFragment {
                         if (newsList.get(position).has_video) {
                             Intent intent = new Intent(getContext(), VideoDetailActivity.class);
                             intent.putExtra("videoData", newsList.get(position));
+
+
                             if (type == 200) {
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
                                         Pair.create(view.findViewById(R.id.centerNewsPic), "share"));
@@ -161,11 +167,19 @@ public class TopFragment extends BaseFragment {
 
 
                         } else {
-                            ToastUtil.showShort(getContext(), "不属于" + newsList.get(position).has_image);
-                            News news = newsList.get(position);
+                            //直接用webView 打开
+                                if(newsList.get(position).article_type==1){
+                                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                                    intent.putExtra("article_url", newsList.get(position).article_url);
+                                    startActivity(intent);
+                                }
 
-                            Log.e("zq", "=" + newsList.get(position));
-                            ToastUtil.showShort(getContext(), "不属于" + position);
+
+                            Intent intent = new Intent(getContext(), NewsDetatilActivity.class);
+                            intent.putExtra("detatil", newsList.get(position));
+                            startActivity(intent);
+
+
                         }
 
 
